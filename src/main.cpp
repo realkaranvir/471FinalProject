@@ -204,11 +204,11 @@ public:
 		// light controls
 		if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 		{
-			lightTrans += 0.5;
+			lightTrans += 2.0;
 		}
 		if (key == GLFW_KEY_E && action == GLFW_PRESS)
 		{
-			lightTrans -= 0.5;
+			lightTrans -= 2.0;
 		}
 		// switch starting block material
 		if (key == GLFW_KEY_M && action == GLFW_PRESS)
