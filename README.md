@@ -1,7 +1,7 @@
 # CPE 471 Graphics Final Project - 3D Obstacle Course
 
 ## Project Overview
-This is a 3D obstacle course game built using OpenGL, featuring character movement, obstacle navigation, and dynamic camera controls. Navigate through a desert landscape filled with cacti, spherical obstacles, spinning axes, and challenging platforming sections to reach the end goal.
+This is a 3D obstacle course game built using OpenGL, featuring character movement, obstacle navigation, and dynamic camera controls. Navigate through a desert landscape filled with cacti, spikes, and spinning axes to reach the end goal.
 
 ## Controls
 
@@ -25,8 +25,6 @@ This is a 3D obstacle course game built using OpenGL, featuring character moveme
 - **G** - Activate cinematic camera spline animation
 - **R** - Reset game (character position, camera, and game state)
 - **Q/E** - Adjust lighting position
-  - Q: Move light source right
-  - E: Move light source left
 - **M** - Toggle material properties for starting platform
 - **Z** - Hold to enable wireframe mode
 
