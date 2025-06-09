@@ -94,3 +94,6 @@ Navigate your character from the starting platform to the end goal while avoidin
 
 ## Development Notes
 This project demonstrates various computer graphics concepts including 3D transformations, texture mapping, lighting models, collision detection, and interactive camera systems.
+
+### How to Compile and Run
+To compile, do "cd build", "cmake .. --fresh", "make", and then "./P3Base"
