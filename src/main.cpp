@@ -353,7 +353,6 @@ public:
 		}
 		else
 		{
-			cout << TOshapesB.size() << endl;
 			for (size_t i = 0; i < TOshapesB.size(); ++i)
 			{
 				shared_ptr<Shape> shape = make_shared<Shape>();
@@ -528,7 +527,6 @@ public:
 		}
 		else
 		{
-			cout << TOshapesA.size() << endl;
 			for (size_t i = 0; i < TOshapesA.size(); ++i)
 			{
 				shared_ptr<Shape> shape = make_shared<Shape>();
@@ -1721,8 +1719,8 @@ public:
 		SetMaterial(texProg, 3);
 		woodTex->bind(texProg->getUniform("Texture0"));
 		Model->pushMatrix();
-		Model->translate(vec3(22, 14.4, -12.9));
-		Model->scale(vec3(4, 1, 1));
+		Model->translate(vec3(32, 14.4, -12.9));
+		Model->scale(vec3(5, 1, 1));
 		Model->rotate(glm::radians(90.0f), vec3(0, 1, 0));
 		glUniformMatrix4fv(texProg->getUniform("M"), 1, GL_FALSE, value_ptr(Model->topMatrix()));
 		plank->draw(texProg);
@@ -1848,8 +1846,6 @@ public:
 			velocityY = 0.0f; // Stop downward velocity when hitting ground
 		}
 
-		cout << "Character Position: " << characterPos.x << ", " << characterPos.y << ", " << characterPos.z << endl;
-
 		// draw the character
 		Model->pushMatrix();
 		SetMaterial(prog, 1);
@@ -1943,7 +1939,6 @@ public:
 			sTheta = sin(glfwGetTime() * 4);
 		}
 		eTheta = cos(glfwGetTime() *1.5);
-		cout << "Character Animation Theta: " << eTheta << endl;
 		hTheta = std::max(0.0f, (float)cos(glfwGetTime()));
 
 		// Pop matrix stacks.
