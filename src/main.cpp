@@ -181,8 +181,21 @@ public:
 			thirdPerson = true;
 			phi = M_PI / 12;
 			theta = M_PI / 2;
-			splinepath[0] = Spline(glm::vec3(-6, 0, 5), glm::vec3(-1, -5, 5), glm::vec3(1, 5, 5), glm::vec3(2, 0, 5), 5);
-			splinepath[1] = Spline(glm::vec3(2, 0, 5), glm::vec3(3, -2, 5), glm::vec3(-0.25, 0.25, 5), glm::vec3(0, 0, 5), 5);
+			splinepath[0] = Spline(
+				glm::vec3(-30, 25, 15),
+				glm::vec3(-20, 15, 5),
+				glm::vec3(-10, 8, -5),
+				glm::vec3(5, 12, -8),
+				4.0f
+			);
+
+			splinepath[1] = Spline(
+				glm::vec3(5, 12, -8),
+				glm::vec3(15, 6, -15),
+				glm::vec3(35, 18, -20),
+				glm::vec3(50, 25, -10),
+				5.0f
+			);
 			velocityX = 0.0f; // Reset horizontal velocity
 			velocityY = 0.0f; // Reset vertical velocity
 			lost = false;
@@ -335,8 +348,21 @@ public:
 		metalTex->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
 		// init splines up and down
-		splinepath[0] = Spline(glm::vec3(-6, 0, 5), glm::vec3(-1, -5, 5), glm::vec3(1, 5, 5), glm::vec3(2, 0, 5), 5);
-		splinepath[1] = Spline(glm::vec3(2, 0, 5), glm::vec3(3, -2, 5), glm::vec3(-0.25, 0.25, 5), glm::vec3(0, 0, 5), 5);
+		splinepath[0] = Spline(
+			glm::vec3(-30, 25, 15),
+			glm::vec3(-20, 15, 5),
+			glm::vec3(-10, 8, -5),
+			glm::vec3(5, 12, -8),
+			4.0f
+		);
+
+		splinepath[1] = Spline(
+			glm::vec3(5, 12, -8),
+			glm::vec3(15, 6, -15),
+			glm::vec3(35, 18, -20),
+			glm::vec3(50, 25, -10),
+			5.0f
+		);
 	}
 
 	void initGeom(const std::string &resourceDirectory)
@@ -1514,6 +1540,7 @@ public:
 			lookAt = gCamPos + lookAt;
 			if (goCamera)
 			{
+				lookAt = vec3(0, 5, -10);
 				if (!splinepath[0].isDone())
 				{
 					splinepath[0].update(frametime);
@@ -1526,9 +1553,21 @@ public:
 				}
 				if (splinepath[1].isDone() && splinepath[0].isDone())
 				{
-					goCamera = false;
-					splinepath[0] = Spline(glm::vec3(-6, 0, 5), glm::vec3(-1, -5, 5), glm::vec3(1, 5, 5), glm::vec3(2, 0, 5), 5);
-					splinepath[1] = Spline(glm::vec3(2, 0, 5), glm::vec3(3, -2, 5), glm::vec3(-0.25, 0.25, 5), glm::vec3(0, 0, 5), 5);
+					splinepath[0] = Spline(
+						glm::vec3(-30, 25, 15),
+						glm::vec3(-20, 15, 5),
+						glm::vec3(-10, 8, -5),
+						glm::vec3(5, 12, -8),
+						4.0f
+					);
+
+					splinepath[1] = Spline(
+						glm::vec3(5, 12, -8),
+						glm::vec3(15, 6, -15),
+						glm::vec3(35, 18, -20),
+						glm::vec3(50, 25, -10),
+						5.0f
+					);
 				}
 			}
 		}
