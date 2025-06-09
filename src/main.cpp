@@ -2,6 +2,8 @@
  * Program 3 base code - includes modifications to shape and initGeom in preparation to load
  * multi shape objects
  * CPE 471 Cal Poly Z. Wood + S. Sueda + I. Dunn
+ * 
+ * Code modified by Karan Sandhu as part of CPE 471 course final project.
  */
 
 #include <iostream>
@@ -78,17 +80,16 @@ public:
 	// Character
 	vec3 characterPos = vec3(-18, 6.5, -12);
 	bool characterAnimated = false; // toggle for character animation
-	float velocityY = 0.0f;			// Vertical velocity
-	float gravity = 9.8f;			// Gravity strength (adjust as needed)
-	float jumpForce = 7.0f;			// Initial jump velocity (adjust as needed)
-	float floorY = 6.5f;			// Floor position (set this to your desired floor level)
-	bool jumpKeyHeld = false;		// Prevents continuous jumping while holding space
+	float velocityY = 0.0f;
+	float gravity = 9.8f;
+	float jumpForce = 7.0f;
+	float floorY = 6.5f;
+	bool jumpKeyHeld = false;
 	float velocityX = 0.0f;
 	const float maxSpeed = 7.0f;
-	const float acceleration = 14.0f; // higher = faster acceleration
-	const float deceleration = 6.0f; // higher = faster stopping
+	const float acceleration = 14.0f;
+	const float deceleration = 6.0f;
 
-	// Camera position in world space
 	vec3 gCamPos = characterPos + vec3(0, 1, -5); // camera position in world space
 	bool thirdPerson = true; // toggle for third person camera
 	float theta = M_PI / 2;
@@ -282,7 +283,7 @@ public:
 		texProg->addAttribute("vertNor");
 		texProg->addAttribute("vertTex");
 
-		// read in a load the texture
+		// read in and load the texture
 		texture0 = make_shared<Texture>();
 		texture0->setFilename(resourceDirectory + "/rubberball.jpg");
 		texture0->init();
@@ -295,14 +296,14 @@ public:
 		texture2->setUnit(1);
 		texture2->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
-		// read in a load the texture
+		// read in and load the texture
 		texture1 = make_shared<Texture>();
 		texture1->setFilename(resourceDirectory + "/whitesand.jpeg");
 		texture1->init();
 		texture1->setUnit(2);
 		texture1->setWrapModes(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
-		// read in a load the texture
+		// read in and load the texture
 		texture3 = make_shared<Texture>();
 		texture3->setFilename(resourceDirectory + "/skybox.jpeg");
 		texture3->init();
@@ -545,54 +546,54 @@ public:
 
 		switch (i)
 		{
-		case 0:															 // clown nose red
-			glUniform3f(curS->getUniform("MatAmb"), 0.3f, 0.05f, 0.05f); // subtle red ambient
-			glUniform3f(curS->getUniform("MatDif"), 0.9f, 0.1f, 0.1f);	 // strong bright red diffuse
-			glUniform3f(curS->getUniform("MatSpec"), 0.5f, 0.3f, 0.3f);	 // reddish glossy specular
-			glUniform1f(curS->getUniform("MatShine"), 60.0f);			 // moderately shiny
+		case 0:
+			glUniform3f(curS->getUniform("MatAmb"), 0.3f, 0.05f, 0.05f);
+			glUniform3f(curS->getUniform("MatDif"), 0.9f, 0.1f, 0.1f);
+			glUniform3f(curS->getUniform("MatSpec"), 0.5f, 0.3f, 0.3f);
+			glUniform1f(curS->getUniform("MatShine"), 60.0f);
 			break;
 
-		case 1:															   // cactus green (desaturated)
-			glUniform3f(curS->getUniform("MatAmb"), 0.18f, 0.22f, 0.18f);  // muted green ambient
-			glUniform3f(curS->getUniform("MatDif"), 0.3f, 0.35f, 0.3f);	   // washed-out green diffuse
-			glUniform3f(curS->getUniform("MatSpec"), 0.12f, 0.15f, 0.12f); // soft and subtle specular
-			glUniform1f(curS->getUniform("MatShine"), 20.0f);			   // same shininess
+		case 1:
+			glUniform3f(curS->getUniform("MatAmb"), 0.18f, 0.22f, 0.18f);
+			glUniform3f(curS->getUniform("MatDif"), 0.3f, 0.35f, 0.3f);
+			glUniform3f(curS->getUniform("MatSpec"), 0.12f, 0.15f, 0.12f);
+			glUniform1f(curS->getUniform("MatShine"), 20.0f);
 			break;
 
 		case 2: // blue plastic
 			if (materialSwitch)
 			{
-				glUniform3f(curS->getUniform("MatAmb"), 0.1f, 0.1f, 0.3f);	 // cool ambient with a blue tint
-				glUniform3f(curS->getUniform("MatDif"), 0.1f, 0.3f, 0.8f);	 // rich blue diffuse
-				glUniform3f(curS->getUniform("MatSpec"), 0.4f, 0.4f, 0.45f); // sharp highlights for plastic
-				glUniform1f(curS->getUniform("MatShine"), 130.0f);			 // glossy surface
+				glUniform3f(curS->getUniform("MatAmb"), 0.1f, 0.1f, 0.3f);
+				glUniform3f(curS->getUniform("MatDif"), 0.1f, 0.3f, 0.8f);
+				glUniform3f(curS->getUniform("MatSpec"), 0.4f, 0.4f, 0.45f);
+				glUniform1f(curS->getUniform("MatShine"), 130.0f);
 			}
 			else
 			{
-				glUniform3f(curS->getUniform("MatAmb"), 0.2f, 0.1f, 0.2f);	// purple ambient
-				glUniform3f(curS->getUniform("MatDif"), 0.5f, 0.2f, 0.5f);	// brighter purple diffuse
-				glUniform3f(curS->getUniform("MatSpec"), 0.7f, 0.4f, 0.7f); // glossy purple specular
-				glUniform1f(curS->getUniform("MatShine"), 100.0f);			// shiny surface
+				glUniform3f(curS->getUniform("MatAmb"), 0.2f, 0.1f, 0.2f);
+				glUniform3f(curS->getUniform("MatDif"), 0.5f, 0.2f, 0.5f);
+				glUniform3f(curS->getUniform("MatSpec"), 0.7f, 0.4f, 0.7f);
+				glUniform1f(curS->getUniform("MatShine"), 100.0f);
 			}
 			break;
 
-		case 3:															 // slightly dimmer white sand material
-			glUniform3f(curS->getUniform("MatAmb"), 0.8f, 0.6f, 0.55f);	 // less bright ambient
-			glUniform3f(curS->getUniform("MatDif"), 0.85f, 0.85f, 0.8f); // slightly darker diffuse
-			glUniform3f(curS->getUniform("MatSpec"), 0.3f, 0.1f, 0.1f);	 // still subtle specular
-			glUniform1f(curS->getUniform("MatShine"), 40.0f);			 // same shininess
+		case 3:
+			glUniform3f(curS->getUniform("MatAmb"), 0.8f, 0.6f, 0.55f);
+			glUniform3f(curS->getUniform("MatDif"), 0.85f, 0.85f, 0.8f);
+			glUniform3f(curS->getUniform("MatSpec"), 0.3f, 0.1f, 0.1f);
+			glUniform1f(curS->getUniform("MatShine"), 40.0f);
 			break;
-		case 4: // skybox material
-			glUniform3f(curS->getUniform("MatAmb"), 1.0f, 1.0f, 1.0f);	 // very bright ambient
-			glUniform3f(curS->getUniform("MatDif"), 0.8f, 0.8f, 0.8f);	 // bright diffuse
-			glUniform3f(curS->getUniform("MatSpec"), 0.5f, 0.5f, 0.5f);	 // noticeable specular
-			glUniform1f(curS->getUniform("MatShine"), 20.0f);			 // moderate shininess
+		case 4: // skybox material (bright)
+			glUniform3f(curS->getUniform("MatAmb"), 1.0f, 1.0f, 1.0f);
+			glUniform3f(curS->getUniform("MatDif"), 0.8f, 0.8f, 0.8f);
+			glUniform3f(curS->getUniform("MatSpec"), 0.5f, 0.5f, 0.5f);
+			glUniform1f(curS->getUniform("MatShine"), 20.0f);
 			break;
 		case 5: // titanium
-			glUniform3f(curS->getUniform("MatAmb"), 0.4f, 0.4f, 0.4f);	 // dark gray ambient
-			glUniform3f(curS->getUniform("MatDif"), 0.5f, 0.5f, 0.5f);	 // medium gray diffuse
-			glUniform3f(curS->getUniform("MatSpec"), 0.9f, 0.9f, 0.9f);	 // bright specular
-			glUniform1f(curS->getUniform("MatShine"), 140.0f);			 // very shiny
+			glUniform3f(curS->getUniform("MatAmb"), 0.4f, 0.4f, 0.4f);
+			glUniform3f(curS->getUniform("MatDif"), 0.5f, 0.5f, 0.5f);
+			glUniform3f(curS->getUniform("MatSpec"), 0.9f, 0.9f, 0.9f);
+			glUniform1f(curS->getUniform("MatShine"), 140.0f);
 			break;
 		}
 	}
@@ -1446,7 +1447,7 @@ public:
 		cube->draw(prog);
 		Model->popMatrix();
 
-		// ! - Exclamation mark
+		// !
 		Model->pushMatrix();
 		Model->translate(vec3(31, 4, 0));
 		glUniformMatrix4fv(prog->getUniform("M"), 1, GL_FALSE, value_ptr(Model->topMatrix()));
@@ -1493,7 +1494,7 @@ public:
 		Projection->pushMatrix();
 		Projection->perspective(45.0f, aspect, 0.01f, 100.0f);
 
-		// View is global translation along negative z for now
+		
 		View->pushMatrix();
 		View->loadIdentity();
 		vec3 lookAt = vec3(radius * cos(phi) * cos(theta), radius * sin(phi), radius * cos(phi) * cos((M_PI / 2.0) - theta));
@@ -1550,7 +1551,7 @@ public:
 		glUniform3f(texProg->getUniform("lightPos"), -2.0 + lightTrans, 2.0, 2.0);
 		glUniform1i(texProg->getUniform("flip"), 1);
 		texture2->bind(texProg->getUniform("Texture0"));
-		// draw the array of bunnies
+		// draw the cacti
 		Model->pushMatrix();
 		std::srand(1234);
 		for (int i = -2; i < 5; i++)
@@ -1726,7 +1727,7 @@ public:
 		plank->draw(texProg);
 		Model->popMatrix();
 
-		// draw the pillars, planks, chains, and axes
+		// draw the pillars, planks, and axes
 		for (int i = 0; i < 10; i++)
 		{
 			SetMaterial(texProg, 3);
@@ -1803,7 +1804,7 @@ public:
 		}
 		else
 		{
-			// No input — apply deceleration toward 0
+			// No input
 			if (velocityX > 0.0f)
 			{
 				velocityX -= deceleration * frametime;
@@ -1927,13 +1928,12 @@ public:
 		Model->pushMatrix();
 		Model->translate(vec3(0, 0, 0));
 		Model->scale(vec3(60));
-		Model->translate(vec3(0, 0.1, 0)); // move skybox up
+		Model->translate(vec3(0, 0.1, 0)); // move skybox up slightly for aesthetics
 		glUniformMatrix4fv(texProg->getUniform("M"), 1, GL_FALSE, value_ptr(Model->topMatrix()));
 		skybox->draw(texProg);
 		Model->popMatrix();
 		texProg->unbind();
 
-		// animation update example
 		if (characterAnimated)
 		{
 			sTheta = sin(glfwGetTime() * 4);
@@ -1941,7 +1941,6 @@ public:
 		eTheta = cos(glfwGetTime() *1.5);
 		hTheta = std::max(0.0f, (float)cos(glfwGetTime()));
 
-		// Pop matrix stacks.
 		Projection->popMatrix();
 		View->popMatrix();
 	}
@@ -1959,16 +1958,10 @@ int main(int argc, char *argv[])
 
 	Application *application = new Application();
 
-	// Your main will always include a similar set up to establish your window
-	// and GL context, etc.
-
 	WindowManager *windowManager = new WindowManager();
 	windowManager->init(WINDOW_WIDTH, WINDOW_HEIGHT);
 	windowManager->setEventCallbacks(application);
 	application->windowManager = windowManager;
-
-	// This is the code that will likely change program to program as you
-	// may need to initialize or set up different data and state
 
 	application->init(resourceDir);
 	application->initGeom(resourceDir);
